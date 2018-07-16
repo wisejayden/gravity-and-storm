@@ -11,7 +11,7 @@ const MasterView = (props) => {
                 props.articles.map((article, i) => {
                     props.renderIndicatorImage(article);
                         return(
-                            <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i} style={props.masterArticleStyle}>
+                            <div  onClick={props.detailViewClickToMaster(i)} id={'article-' + i} className="article-container" key={i} >
                                 <h1>{article.title}</h1>
                                 {article.level[1]}
                                 <p>{article.body.substring(0,80) + '...'}</p>

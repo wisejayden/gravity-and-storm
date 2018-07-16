@@ -3,6 +3,7 @@
     border: solid #d5d5d5 1px;
     height: 100vh;
     overflow-y: scroll;
+    margin-left: 1px;
 }
 
 .indicator-light {
@@ -15,6 +16,7 @@
 .article-container {
     border: solid 1px #d5d5d5;
     position: relative;
+    cursor: pointer;
 }
 
 .article-container > h1 {

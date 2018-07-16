@@ -33,6 +33,7 @@ export default class App extends Component {
     detailViewClickToMaster(index) {
         const self = this;
         return function() {
+            console.log("e");
             const currentMasterView = self.state.allArticles[index];
             self.renderIndicatorImage(currentMasterView);
             self.setState({
@@ -81,7 +82,6 @@ export default class App extends Component {
             })
         }
     }
-
     render() {
         return(
             <div id="App">

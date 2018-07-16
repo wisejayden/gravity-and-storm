@@ -21569,7 +21569,7 @@ var MasterView = function MasterView(props) {
             props.renderIndicatorImage(article);
             return _react2.default.createElement(
                 'div',
-                { onClick: props.detailViewClickToMaster(i), className: 'article-container', key: i, style: props.masterArticleStyle },
+                { onClick: props.detailViewClickToMaster(i), id: 'article-' + i, className: 'article-container', key: i },
                 _react2.default.createElement(
                     'h1',
                     null,
@@ -21672,6 +21672,7 @@ var App = function (_Component) {
         value: function detailViewClickToMaster(index) {
             var self = this;
             return function () {
+                console.log("e");
                 var currentMasterView = self.state.allArticles[index];
                 self.renderIndicatorImage(currentMasterView);
                 self.setState({
@@ -21795,7 +21796,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59168' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64843' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
