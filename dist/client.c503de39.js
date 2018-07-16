@@ -21657,7 +21657,7 @@ var App = function (_Component) {
         value: function componentWillMount() {
             var _this2 = this;
 
-            _axios2.default.get('/hello').then(function (res) {
+            _axios2.default.get('/get-news').then(function (res) {
                 _this2.setState({
                     allArticles: res.data
                 });
@@ -21795,7 +21795,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56549' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59168' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

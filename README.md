@@ -14,6 +14,7 @@ A News-App built with react, with a front-end built bundled with parcel, and ser
 * Change some files!
 
 ## Run
-
+* `git clone repo`
+* `npm install`
 * `npm start`
 * Visit http://localhost:3000

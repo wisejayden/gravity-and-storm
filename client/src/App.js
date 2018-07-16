@@ -19,7 +19,7 @@ export default class App extends Component {
     }
     //Before mounting, retrieve data from API Call.
     componentWillMount() {
-        axios.get('/hello')
+        axios.get('/get-news')
             .then(res => {
                 this.setState({
                     allArticles: res.data
