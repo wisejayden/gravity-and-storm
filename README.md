@@ -1,7 +1,7 @@
 <h1 align="center">gravity & storm news-App</h1>
 
 <h4 align="center">
-A tiny starter for a react project, with front-end built with parcel, and served through express.
+A News-App built with react, with a front-end built bundled with parcel, and served through express.
 </h4>
 
 ***
