@@ -21430,12 +21430,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/components/DetailMaster.css":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/components/DetailView.css":[function(require,module,exports) {
 
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/DetailMaster.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/DetailView.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21446,11 +21446,12 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-require('./DetailMaster.css');
+require('./DetailView.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DetailMaster = function DetailMaster(props) {
+var DetailView = function DetailView(props) {
+    console.log("props_______", props);
     return _react2.default.createElement(
         'div',
         { id: 'DetailMaster' },
@@ -21458,7 +21459,7 @@ var DetailMaster = function DetailMaster(props) {
             props.renderIndicatorImage(article);
             return _react2.default.createElement(
                 'div',
-                { className: 'article-container', key: i },
+                { onClick: props.detailViewClickToMaster(i), className: 'article-container', key: i },
                 _react2.default.createElement(
                     'h1',
                     null,
@@ -21480,8 +21481,67 @@ var DetailMaster = function DetailMaster(props) {
     );
 };
 
-exports.default = DetailMaster;
-},{"react":"../node_modules/react/index.js","./DetailMaster.css":"src/components/DetailMaster.css"}],"src/App.css":[function(require,module,exports) {
+exports.default = DetailView;
+},{"react":"../node_modules/react/index.js","./DetailView.css":"src/components/DetailView.css"}],"src/components/MasterView.css":[function(require,module,exports) {
+
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/MasterView.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./MasterView.css');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MasterView = function MasterView(props) {
+    var currentMasterView = props.currentMasterView;
+    console.log("currentMasterView", currentMasterView);
+    return _react2.default.createElement(
+        'div',
+        { id: 'MasterView' },
+        currentMasterView && _react2.default.createElement(
+            'div',
+            { className: 'master-container' },
+            _react2.default.createElement(
+                'h1',
+                null,
+                currentMasterView.title
+            ),
+            currentMasterView.level,
+            _react2.default.createElement(
+                'p',
+                null,
+                currentMasterView.body
+            ),
+            currentMasterView.url_action.map(function (action, i) {
+                return _react2.default.createElement(
+                    'a',
+                    { key: i, href: action.url },
+                    action.title
+                );
+            }),
+            currentMasterView.url_explanation.map(function (explanation, i) {
+                return _react2.default.createElement(
+                    'a',
+                    { key: i, href: explanation.url },
+                    explanation.title
+                );
+            })
+        )
+    );
+};
+
+exports.default = MasterView;
+},{"react":"../node_modules/react/index.js","./MasterView.css":"src/components/MasterView.css"}],"src/App.css":[function(require,module,exports) {
 
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
@@ -21507,9 +21567,13 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _DetailMaster = require('./components/DetailMaster');
+var _DetailView = require('./components/DetailView');
 
-var _DetailMaster2 = _interopRequireDefault(_DetailMaster);
+var _DetailView2 = _interopRequireDefault(_DetailView);
+
+var _MasterView = require('./components/MasterView');
+
+var _MasterView2 = _interopRequireDefault(_MasterView);
 
 require('./App.css');
 
@@ -21529,8 +21593,11 @@ var App = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-        _this.state = {};
+        _this.state = {
+            masterView: ''
+        };
         _this.renderIndicatorImage = _this.renderIndicatorImage.bind(_this);
+        _this.detailViewClickToMaster = _this.detailViewClickToMaster.bind(_this);
         return _this;
     }
 
@@ -21551,6 +21618,18 @@ var App = function (_Component) {
             });
         }
     }, {
+        key: 'detailViewClickToMaster',
+        value: function detailViewClickToMaster(index) {
+            var self = this;
+            return function () {
+                var currentMasterView = self.state.allArticles[index];
+                self.renderIndicatorImage(currentMasterView);
+                self.setState({
+                    currentMasterView: currentMasterView
+                });
+            };
+        }
+    }, {
         key: 'renderIndicatorImage',
         value: function renderIndicatorImage(article) {
             if (article.level === '0') {
@@ -21568,8 +21647,9 @@ var App = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
-                _react2.default.createElement(_DetailMaster2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage })
+                { id: 'App' },
+                _react2.default.createElement(_DetailView2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage, detailViewClickToMaster: this.detailViewClickToMaster }),
+                _react2.default.createElement(_MasterView2.default, { currentMasterView: this.state.currentMasterView, renderIndicatorImage: this.renderIndicatorImage })
             );
         }
     }]);
@@ -21578,7 +21658,7 @@ var App = function (_Component) {
 }(_react.Component);
 
 exports.default = App;
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","axios":"../node_modules/axios/index.js","./components/DetailMaster":"src/components/DetailMaster.js","./App.css":"src/App.css"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","axios":"../node_modules/axios/index.js","./components/DetailView":"src/components/DetailView.js","./components/MasterView":"src/components/MasterView.js","./App.css":"src/App.css"}],"index.js":[function(require,module,exports) {
 'use strict';
 
 var _react = require('react');
@@ -21625,7 +21705,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60683' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64694' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

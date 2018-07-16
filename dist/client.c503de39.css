@@ -1,6 +1,8 @@
 #DetailMaster {
-    width: 30vw;
+    width: 400px;
     border: solid black 1px;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .indicator-light {
@@ -13,6 +15,13 @@
 
 .article-container > h1 {
     font-size: 10px;
+}
+#MasterView {
+    width: 100%;
+}
+
+.master-container > h1 {
+    text-align: center;
 }
 @font-face {
     font-family: 'simplifica';
@@ -28,4 +37,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'helvetica';
+}
+
+#App {
+    display: flex;
 }

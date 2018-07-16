@@ -1,6 +1,8 @@
 #DetailMaster {
-    width: 30vw;
+    width: 400px;
     border: solid black 1px;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .indicator-light {

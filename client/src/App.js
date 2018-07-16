@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import DetailMaster from './components/DetailMaster';
+import DetailView from './components/DetailView';
+import MasterView from './components/MasterView';
 import './App.css'
 
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.state={};
+        this.state={
+            masterView: ''
+        };
         this.renderIndicatorImage = this.renderIndicatorImage.bind(this);
+        this.detailViewClickToMaster = this.detailViewClickToMaster.bind(this);
     }
     componentWillMount() {
         console.log("clicked");
@@ -25,6 +29,18 @@ export default class App extends Component {
                 console.log("err", err);
             })
     }
+    detailViewClickToMaster(index) {
+        const self = this;
+        return function() {
+            const currentMasterView = self.state.allArticles[index];
+            self.renderIndicatorImage(currentMasterView);
+            self.setState({
+                currentMasterView
+            })
+        }
+
+
+    }
     renderIndicatorImage(article) {
         if(article.level === '0') {
             article.level = <img src="/images/green.png" className="indicator-light" />
@@ -39,8 +55,10 @@ export default class App extends Component {
     }
     render() {
         return(
-            <div>
-                <DetailMaster articles={this.state.allArticles} renderIndicatorImage ={this.renderIndicatorImage}/>
+            <div id="App">
+                <DetailView articles={this.state.allArticles} renderIndicatorImage ={this.renderIndicatorImage} detailViewClickToMaster={this.detailViewClickToMaster}/>
+                <MasterView currentMasterView={this.state.currentMasterView} renderIndicatorImage={this.renderIndicatorImage}/>
+
             </div>
 
         )

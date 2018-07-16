@@ -1,14 +1,15 @@
 import React from 'react';
-import './DetailMaster.css';
+import './DetailView.css';
 
-const DetailMaster = (props) => {
+const DetailView = (props) => {
+    console.log("props_______", props)
     return (
         <div id="DetailMaster">
         {props.articles &&
             props.articles.map((article, i) => {
                 props.renderIndicatorImage(article);
                     return(
-                        <div className="article-container" key={i}>
+                        <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i}>
                             <h1>{article.title}</h1>
                             <span>Importance Level - {article.level}</span>
                             <p>{article.body.substring(0,80) + '...'}</p>
@@ -20,4 +21,4 @@ const DetailMaster = (props) => {
     )
 }
 
-export default DetailMaster;
+export default DetailView;

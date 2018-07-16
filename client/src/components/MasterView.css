@@ -1,0 +1,7 @@
+#MasterView {
+    width: 100%;
+}
+
+.master-container > h1 {
+    text-align: center;
+}
