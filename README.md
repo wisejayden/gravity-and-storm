@@ -1,4 +1,4 @@
-# Tutorial - express / parcel / react
+# gravity & storm news-App
 <h1 align="center">Express, parcel and react starter.</h1>
 
 <h4 align="center">
