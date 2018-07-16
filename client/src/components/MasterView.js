@@ -3,13 +3,12 @@ import './MasterView.css';
 
 const MasterView = (props) => {
     const currentMasterView = props.currentMasterView;
-    console.log("currentMasterView", currentMasterView);
     return (
         <div id="MasterView">
             {currentMasterView &&
                 <div className="master-container">
                     <h1>{currentMasterView.title}</h1>
-                    {currentMasterView.level}
+                    {currentMasterView.level[1]}
                     <p>{currentMasterView.body}</p>
                     {currentMasterView.url_action.map((action, i) => {
                         return(

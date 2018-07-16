@@ -21435,7 +21435,42 @@ module.exports = reloadCSS;
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/DetailView.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/FilterDropdown.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FilterDropdown = function FilterDropdown(props) {
+    return _react2.default.createElement(
+        "label",
+        null,
+        _react2.default.createElement(
+            "select",
+            { value: props.dropdownValue, onChange: props.dropdownHandleChange },
+            _react2.default.createElement(
+                "option",
+                { value: "date" },
+                "Date"
+            ),
+            _react2.default.createElement(
+                "option",
+                { value: "importance" },
+                "Importance"
+            )
+        )
+    );
+};
+
+exports.default = FilterDropdown;
+},{"react":"../node_modules/react/index.js"}],"src/components/DetailView.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21448,13 +21483,18 @@ var _react2 = _interopRequireDefault(_react);
 
 require('./DetailView.css');
 
+var _FilterDropdown = require('./FilterDropdown');
+
+var _FilterDropdown2 = _interopRequireDefault(_FilterDropdown);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DetailView = function DetailView(props) {
-    console.log("props_______", props);
+    var dropdownOptions = ['one', 'two', 'three'];
     return _react2.default.createElement(
         'div',
         { id: 'DetailMaster' },
+        _react2.default.createElement(_FilterDropdown2.default, { dropdownHandleChange: props.dropdownHandleChange, dropdownValue: props.dropdownValue }),
         props.articles && props.articles.map(function (article, i) {
             props.renderIndicatorImage(article);
             return _react2.default.createElement(
@@ -21469,7 +21509,7 @@ var DetailView = function DetailView(props) {
                     'span',
                     null,
                     'Importance Level - ',
-                    article.level
+                    article.level[1]
                 ),
                 _react2.default.createElement(
                     'p',
@@ -21482,7 +21522,7 @@ var DetailView = function DetailView(props) {
 };
 
 exports.default = DetailView;
-},{"react":"../node_modules/react/index.js","./DetailView.css":"src/components/DetailView.css"}],"src/components/MasterView.css":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./DetailView.css":"src/components/DetailView.css","./FilterDropdown":"src/components/FilterDropdown.js"}],"src/components/MasterView.css":[function(require,module,exports) {
 
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
@@ -21504,7 +21544,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var MasterView = function MasterView(props) {
     var currentMasterView = props.currentMasterView;
-    console.log("currentMasterView", currentMasterView);
     return _react2.default.createElement(
         'div',
         { id: 'MasterView' },
@@ -21516,7 +21555,7 @@ var MasterView = function MasterView(props) {
                 null,
                 currentMasterView.title
             ),
-            currentMasterView.level,
+            currentMasterView.level[1],
             _react2.default.createElement(
                 'p',
                 null,
@@ -21594,10 +21633,13 @@ var App = function (_Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.state = {
-            masterView: ''
+            masterView: '',
+            dropdownValue: 'date'
         };
         _this.renderIndicatorImage = _this.renderIndicatorImage.bind(_this);
         _this.detailViewClickToMaster = _this.detailViewClickToMaster.bind(_this);
+        _this.dropdownHandleChange = _this.dropdownHandleChange.bind(_this);
+        _this.sortArticles = _this.sortArticles.bind(_this);
         return _this;
     }
 
@@ -21608,8 +21650,6 @@ var App = function (_Component) {
 
             console.log("clicked");
             _axios2.default.get('/hello').then(function (res) {
-                console.log("res", res.data);
-
                 _this2.setState({
                     allArticles: res.data
                 });
@@ -21633,13 +21673,53 @@ var App = function (_Component) {
         key: 'renderIndicatorImage',
         value: function renderIndicatorImage(article) {
             if (article.level === '0') {
-                article.level = _react2.default.createElement('img', { src: '/images/green.png', className: 'indicator-light' });
+                article.level = [0, _react2.default.createElement('img', { src: '/images/green.png', className: 'indicator-light' })];
             }
             if (article.level === '1') {
-                article.level = _react2.default.createElement('img', { src: '/images/yellow.png', className: 'indicator-light' });
+                article.level = [1, _react2.default.createElement('img', { src: '/images/yellow.png', className: 'indicator-light' })];
             }
             if (article.level === '2') {
-                article.level = _react2.default.createElement('img', { src: '/images/red.png', className: 'indicator-light' });
+                article.level = [2, _react2.default.createElement('img', { src: '/images/red.png', className: 'indicator-light' })];
+            }
+        }
+    }, {
+        key: 'dropdownHandleChange',
+        value: function dropdownHandleChange(e) {
+            var _this3 = this;
+
+            console.log("handling change!", e.target.value);
+            this.setState({
+                dropdownValue: e.target.value
+            }, function () {
+                _this3.sortArticles();
+            });
+        }
+    }, {
+        key: 'sortArticles',
+        value: function sortArticles() {
+            var value = this.state.dropdownValue;
+            var articles = this.state.allArticles;
+            console.log("Sort Articles function", value);
+
+            if (value === 'date') {
+                console.log("articles sorting date", articles);
+                articles.sort(function (a, b) {
+                    return b.published_date - a.published_date;
+                });
+                this.setState({
+                    allArticles: articles
+                });
+                console.log("________1", articles);
+            }
+            if (value === 'importance') {
+                console.log("articles sorting importance", articles);
+                articles.sort(function (a, b) {
+                    return b.level[0] - a.level[0];
+                });
+                console.log("________2", articles);
+                this.setState({
+                    allArticles: articles
+                });
             }
         }
     }, {
@@ -21648,7 +21728,8 @@ var App = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'App' },
-                _react2.default.createElement(_DetailView2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage, detailViewClickToMaster: this.detailViewClickToMaster }),
+                _react2.default.createElement(_DetailView2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage, detailViewClickToMaster: this.detailViewClickToMaster,
+                    dropdownHandleChange: this.dropdownHandleChange, dropdownValue: this.state.dropdownValue }),
                 _react2.default.createElement(_MasterView2.default, { currentMasterView: this.state.currentMasterView, renderIndicatorImage: this.renderIndicatorImage })
             );
         }
@@ -21705,7 +21786,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64694' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63705' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
