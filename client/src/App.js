@@ -38,7 +38,9 @@ export default class App extends Component {
             self.setState({
                 currentMasterView
             })
+            console.log("REACHING?");
         }
+
 
 
     }
@@ -90,12 +92,13 @@ export default class App extends Component {
             })
         }
     }
+
     render() {
         return(
             <div id="App">
-                <DetailView articles={this.state.allArticles} renderIndicatorImage ={this.renderIndicatorImage} detailViewClickToMaster={this.detailViewClickToMaster}
-                dropdownHandleChange={this.dropdownHandleChange} dropdownValue={this.state.dropdownValue}/>
-                <MasterView currentMasterView={this.state.currentMasterView} renderIndicatorImage={this.renderIndicatorImage}/>
+                <MasterView articles={this.state.allArticles} renderIndicatorImage ={this.renderIndicatorImage} detailViewClickToMaster={this.detailViewClickToMaster}
+                dropdownHandleChange={this.dropdownHandleChange} dropdownValue={this.state.dropdownValue} masterArticleStyle={this.state.masterArticleStyle}/>
+                <DetailView currentMasterView={this.state.currentMasterView} renderIndicatorImage={this.renderIndicatorImage}/>
 
             </div>
 

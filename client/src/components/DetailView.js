@@ -1,25 +1,38 @@
 import React from 'react';
 import './DetailView.css';
-import FilterDropdown from './FilterDropdown';
-
 
 const DetailView = (props) => {
-    const dropdownOptions = ['one', 'two', 'three']
-        return (
-        <div id="DetailMaster">
-        <FilterDropdown dropdownHandleChange={props.dropdownHandleChange} dropdownValue={props.dropdownValue}/>
-        {props.articles &&
-            props.articles.map((article, i) => {
-                props.renderIndicatorImage(article);
-                    return(
-                        <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i}>
-                            <h1>{article.title}</h1>
-                            <span>Importance Level - {article.level[1]}</span>
-                            <p>{article.body.substring(0,80) + '...'}</p>
-                        </div>
-                    )
-            })
-        }
+    const currentMasterView = props.currentMasterView;
+    return (
+        <div id="MasterView">
+            {!currentMasterView &&
+                <p id="no-selection">Select an article from the left</p>
+            }
+            {currentMasterView &&
+                <div className="master-container">
+                    <h1>{currentMasterView.title}</h1>
+                    <div id="action-link-container">
+                        {currentMasterView.url_action.map((action, i) => {
+                            return(
+                                <a className="action-link"key={i} href={action.url} target="_blank">{action.title}</a>
+                            )
+                        })}
+                    </div>
+                    {currentMasterView.level[1]}
+                    <div className="body-container">
+                        <p>{currentMasterView.body}</p>
+                    </div>
+
+                    {currentMasterView.url_explanation.map((explanation, i) => {
+                        return(
+                            <a className="explanation-link" key={i} href={explanation.url} target="_blank">{explanation.title}</a>
+                        )
+                    })}
+
+
+                </div>
+
+            }
         </div>
     )
 }

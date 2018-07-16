@@ -21435,6 +21435,77 @@ module.exports = reloadCSS;
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/DetailView.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+require('./DetailView.css');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DetailView = function DetailView(props) {
+    var currentMasterView = props.currentMasterView;
+    return _react2.default.createElement(
+        'div',
+        { id: 'MasterView' },
+        !currentMasterView && _react2.default.createElement(
+            'p',
+            { id: 'no-selection' },
+            'Select an article from the left'
+        ),
+        currentMasterView && _react2.default.createElement(
+            'div',
+            { className: 'master-container' },
+            _react2.default.createElement(
+                'h1',
+                null,
+                currentMasterView.title
+            ),
+            _react2.default.createElement(
+                'div',
+                { id: 'action-link-container' },
+                currentMasterView.url_action.map(function (action, i) {
+                    return _react2.default.createElement(
+                        'a',
+                        { className: 'action-link', key: i, href: action.url, target: '_blank' },
+                        action.title
+                    );
+                })
+            ),
+            currentMasterView.level[1],
+            _react2.default.createElement(
+                'div',
+                { className: 'body-container' },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    currentMasterView.body
+                )
+            ),
+            currentMasterView.url_explanation.map(function (explanation, i) {
+                return _react2.default.createElement(
+                    'a',
+                    { className: 'explanation-link', key: i, href: explanation.url, target: '_blank' },
+                    explanation.title
+                );
+            })
+        )
+    );
+};
+
+exports.default = DetailView;
+},{"react":"../node_modules/react/index.js","./DetailView.css":"src/components/DetailView.css"}],"src/components/MasterView.css":[function(require,module,exports) {
+
+var reloadCSS = require('_css_loader');
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
 },{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/FilterDropdown.js":[function(require,module,exports) {
 "use strict";
 
@@ -21470,64 +21541,7 @@ var FilterDropdown = function FilterDropdown(props) {
 };
 
 exports.default = FilterDropdown;
-},{"react":"../node_modules/react/index.js"}],"src/components/DetailView.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-require('./DetailView.css');
-
-var _FilterDropdown = require('./FilterDropdown');
-
-var _FilterDropdown2 = _interopRequireDefault(_FilterDropdown);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DetailView = function DetailView(props) {
-    var dropdownOptions = ['one', 'two', 'three'];
-    return _react2.default.createElement(
-        'div',
-        { id: 'DetailMaster' },
-        _react2.default.createElement(_FilterDropdown2.default, { dropdownHandleChange: props.dropdownHandleChange, dropdownValue: props.dropdownValue }),
-        props.articles && props.articles.map(function (article, i) {
-            props.renderIndicatorImage(article);
-            return _react2.default.createElement(
-                'div',
-                { onClick: props.detailViewClickToMaster(i), className: 'article-container', key: i },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    article.title
-                ),
-                _react2.default.createElement(
-                    'span',
-                    null,
-                    'Importance Level - ',
-                    article.level[1]
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    article.body.substring(0, 80) + '...'
-                )
-            );
-        })
-    );
-};
-
-exports.default = DetailView;
-},{"react":"../node_modules/react/index.js","./DetailView.css":"src/components/DetailView.css","./FilterDropdown":"src/components/FilterDropdown.js"}],"src/components/MasterView.css":[function(require,module,exports) {
-
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/MasterView.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"src/components/MasterView.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21540,47 +21554,41 @@ var _react2 = _interopRequireDefault(_react);
 
 require('./MasterView.css');
 
+var _FilterDropdown = require('./FilterDropdown');
+
+var _FilterDropdown2 = _interopRequireDefault(_FilterDropdown);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var MasterView = function MasterView(props) {
-    var currentMasterView = props.currentMasterView;
+    var dropdownOptions = ['one', 'two', 'three'];
     return _react2.default.createElement(
         'div',
-        { id: 'MasterView' },
-        currentMasterView && _react2.default.createElement(
-            'div',
-            { className: 'master-container' },
-            _react2.default.createElement(
-                'h1',
-                null,
-                currentMasterView.title
-            ),
-            currentMasterView.level[1],
-            _react2.default.createElement(
-                'p',
-                null,
-                currentMasterView.body
-            ),
-            currentMasterView.url_action.map(function (action, i) {
-                return _react2.default.createElement(
-                    'a',
-                    { key: i, href: action.url },
-                    action.title
-                );
-            }),
-            currentMasterView.url_explanation.map(function (explanation, i) {
-                return _react2.default.createElement(
-                    'a',
-                    { key: i, href: explanation.url },
-                    explanation.title
-                );
-            })
-        )
+        { id: 'DetailMaster' },
+        _react2.default.createElement(_FilterDropdown2.default, { dropdownHandleChange: props.dropdownHandleChange, dropdownValue: props.dropdownValue }),
+        props.articles && props.articles.map(function (article, i) {
+            props.renderIndicatorImage(article);
+            return _react2.default.createElement(
+                'div',
+                { onClick: props.detailViewClickToMaster(i), className: 'article-container', key: i, style: props.masterArticleStyle },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    article.title
+                ),
+                article.level[1],
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    article.body.substring(0, 80) + '...'
+                )
+            );
+        })
     );
 };
 
 exports.default = MasterView;
-},{"react":"../node_modules/react/index.js","./MasterView.css":"src/components/MasterView.css"}],"src/App.css":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./MasterView.css":"src/components/MasterView.css","./FilterDropdown":"src/components/FilterDropdown.js"}],"src/App.css":[function(require,module,exports) {
 
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
@@ -21667,6 +21675,7 @@ var App = function (_Component) {
                 self.setState({
                     currentMasterView: currentMasterView
                 });
+                console.log("REACHING?");
             };
         }
     }, {
@@ -21728,9 +21737,9 @@ var App = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'App' },
-                _react2.default.createElement(_DetailView2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage, detailViewClickToMaster: this.detailViewClickToMaster,
-                    dropdownHandleChange: this.dropdownHandleChange, dropdownValue: this.state.dropdownValue }),
-                _react2.default.createElement(_MasterView2.default, { currentMasterView: this.state.currentMasterView, renderIndicatorImage: this.renderIndicatorImage })
+                _react2.default.createElement(_MasterView2.default, { articles: this.state.allArticles, renderIndicatorImage: this.renderIndicatorImage, detailViewClickToMaster: this.detailViewClickToMaster,
+                    dropdownHandleChange: this.dropdownHandleChange, dropdownValue: this.state.dropdownValue, masterArticleStyle: this.state.masterArticleStyle }),
+                _react2.default.createElement(_DetailView2.default, { currentMasterView: this.state.currentMasterView, renderIndicatorImage: this.renderIndicatorImage })
             );
         }
     }]);
@@ -21786,7 +21795,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63705' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57270' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

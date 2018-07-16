@@ -1,30 +1,25 @@
 import React from 'react';
 import './MasterView.css';
+import FilterDropdown from './FilterDropdown';
+
 
 const MasterView = (props) => {
-    const currentMasterView = props.currentMasterView;
-    return (
-        <div id="MasterView">
-            {currentMasterView &&
-                <div className="master-container">
-                    <h1>{currentMasterView.title}</h1>
-                    {currentMasterView.level[1]}
-                    <p>{currentMasterView.body}</p>
-                    {currentMasterView.url_action.map((action, i) => {
-                        return(
-                            <a key={i} href={action.url}>{action.title}</a>
-                        )
-                    })}
-                    {currentMasterView.url_explanation.map((explanation, i) => {
-                        return(
-                            <a key={i} href={explanation.url}>{explanation.title}</a>
-                        )
-                    })}
-
-
-                </div>
-
-            }
+    const dropdownOptions = ['one', 'two', 'three'];
+        return (
+        <div id="DetailMaster">
+        <FilterDropdown dropdownHandleChange={props.dropdownHandleChange} dropdownValue={props.dropdownValue}/>
+        {props.articles &&
+            props.articles.map((article, i) => {
+                props.renderIndicatorImage(article);
+                    return(
+                        <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i} style={props.masterArticleStyle}>
+                            <h1>{article.title}</h1>
+                            {article.level[1]}
+                            <p>{article.body.substring(0,80) + '...'}</p>
+                        </div>
+                    )
+            })
+        }
         </div>
     )
 }
