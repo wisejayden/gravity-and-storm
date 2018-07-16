@@ -21489,13 +21489,22 @@ var DetailView = function DetailView(props) {
                     currentMasterView.body
                 )
             ),
-            currentMasterView.url_explanation.map(function (explanation, i) {
-                return _react2.default.createElement(
-                    'a',
-                    { className: 'explanation-link', key: i, href: explanation.url, target: '_blank' },
-                    explanation.title
-                );
-            })
+            _react2.default.createElement(
+                'div',
+                { id: 'explanation-link-container' },
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    'Supporting Documentation: '
+                ),
+                currentMasterView.url_explanation.map(function (explanation, i) {
+                    return _react2.default.createElement(
+                        'a',
+                        { className: 'explanation-link', key: i, href: explanation.url, target: '_blank' },
+                        explanation.title
+                    );
+                })
+            )
         )
     );
 };
@@ -21796,7 +21805,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64843' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60512' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

@@ -23,11 +23,14 @@ const DetailView = (props) => {
                         <p>{currentMasterView.body}</p>
                     </div>
 
-                    {currentMasterView.url_explanation.map((explanation, i) => {
-                        return(
-                            <a className="explanation-link" key={i} href={explanation.url} target="_blank">{explanation.title}</a>
-                        )
-                    })}
+                    <div id="explanation-link-container">
+                        <span>Supporting Documentation: </span>
+                        {currentMasterView.url_explanation.map((explanation, i) => {
+                            return(
+                                <a className="explanation-link" key={i} href={explanation.url} target="_blank">{explanation.title}</a>
+                            )
+                        })}
+                    </div>
                 </div>
             }
         </div>

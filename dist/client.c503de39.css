@@ -20,6 +20,7 @@
 .body-container {
     width: 80%;
     margin-left: 10%;
+    margin-bottom: 30px;
 }
 .body-container > p {
     margin-bottom: 50px;
@@ -42,6 +43,15 @@
 .explanation-link {
     display: block;
     text-align: center;
+    margin-top: 10px;
+
+}
+
+#explanation-link-container {
+    border-top: solid black 1px;
+    width: 80%;
+    margin-left: 10%;
+    padding-top: 30px;
 }
 #DetailMaster {
     width: 400px;
