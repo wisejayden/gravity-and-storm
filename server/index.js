@@ -3,8 +3,6 @@ const app = express()
 const axios = require('axios');
 
 app.use(express.static('dist'));
-// app.use(bodyParser.json());
-
 
 app.get('/hello', (req, res) => {
     axios.get('https://www.sicher-im-netz.de/siba-app/siba/list/0')

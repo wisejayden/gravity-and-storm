@@ -1,5 +1,4 @@
-# gravity & storm news-App
-<h1 align="center">Express, parcel and react starter.</h1>
+<h1 align="center">gravity & storm news-App</h1>
 
 <h4 align="center">
 A tiny starter for a react project, with front-end built with parcel, and served through express.

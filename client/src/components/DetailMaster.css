@@ -1,0 +1,16 @@
+#DetailMaster {
+    width: 30vw;
+    border: solid black 1px;
+}
+
+.indicator-light {
+    width: 20px;
+}
+
+.article-container {
+    border: solid 1px black;
+}
+
+.article-container > h1 {
+    font-size: 10px;
+}

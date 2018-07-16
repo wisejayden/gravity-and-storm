@@ -1,0 +1,31 @@
+#DetailMaster {
+    width: 30vw;
+    border: solid black 1px;
+}
+
+.indicator-light {
+    width: 20px;
+}
+
+.article-container {
+    border: solid 1px black;
+}
+
+.article-container > h1 {
+    font-size: 10px;
+}
+@font-face {
+    font-family: 'simplifica';
+    src: url('simplifica_typeface-webfont.3e59e326.woff2') format('woff2'),
+        url('simplifica_typeface-webfont.dce437bc.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'helvetica';
+}
