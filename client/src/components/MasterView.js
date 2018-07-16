@@ -4,22 +4,21 @@ import FilterDropdown from './FilterDropdown';
 
 
 const MasterView = (props) => {
-    const dropdownOptions = ['one', 'two', 'three'];
         return (
         <div id="DetailMaster">
-        <FilterDropdown dropdownHandleChange={props.dropdownHandleChange} dropdownValue={props.dropdownValue}/>
-        {props.articles &&
-            props.articles.map((article, i) => {
-                props.renderIndicatorImage(article);
-                    return(
-                        <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i} style={props.masterArticleStyle}>
-                            <h1>{article.title}</h1>
-                            {article.level[1]}
-                            <p>{article.body.substring(0,80) + '...'}</p>
-                        </div>
-                    )
-            })
-        }
+            <FilterDropdown dropdownHandleChange={props.dropdownHandleChange} dropdownValue={props.dropdownValue}/>
+            {props.articles &&
+                props.articles.map((article, i) => {
+                    props.renderIndicatorImage(article);
+                        return(
+                            <div  onClick={props.detailViewClickToMaster(i)} className="article-container" key={i} style={props.masterArticleStyle}>
+                                <h1>{article.title}</h1>
+                                {article.level[1]}
+                                <p>{article.body.substring(0,80) + '...'}</p>
+                            </div>
+                        )
+                })
+            }
         </div>
     )
 }

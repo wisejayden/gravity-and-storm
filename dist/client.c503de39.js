@@ -21561,7 +21561,6 @@ var _FilterDropdown2 = _interopRequireDefault(_FilterDropdown);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var MasterView = function MasterView(props) {
-    var dropdownOptions = ['one', 'two', 'three'];
     return _react2.default.createElement(
         'div',
         { id: 'DetailMaster' },
@@ -21650,13 +21649,14 @@ var App = function (_Component) {
         _this.sortArticles = _this.sortArticles.bind(_this);
         return _this;
     }
+    //Before mounting, retrieve data from API Call.
+
 
     _createClass(App, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
             var _this2 = this;
 
-            console.log("clicked");
             _axios2.default.get('/hello').then(function (res) {
                 _this2.setState({
                     allArticles: res.data
@@ -21665,6 +21665,8 @@ var App = function (_Component) {
                 console.log("err", err);
             });
         }
+        //On clicking on an article take that index, indentifying the number in the initial array of articles and pass that info to the MasterView component.
+
     }, {
         key: 'detailViewClickToMaster',
         value: function detailViewClickToMaster(index) {
@@ -21675,9 +21677,10 @@ var App = function (_Component) {
                 self.setState({
                     currentMasterView: currentMasterView
                 });
-                console.log("REACHING?");
             };
         }
+        //Change the data to display both the level integer and an image represting the importance.
+
     }, {
         key: 'renderIndicatorImage',
         value: function renderIndicatorImage(article) {
@@ -21691,41 +21694,38 @@ var App = function (_Component) {
                 article.level = [2, _react2.default.createElement('img', { src: '/images/red.png', className: 'indicator-light' })];
             }
         }
+        //In reference to the drop down filter in the MasterView.
+
     }, {
         key: 'dropdownHandleChange',
         value: function dropdownHandleChange(e) {
             var _this3 = this;
 
-            console.log("handling change!", e.target.value);
             this.setState({
                 dropdownValue: e.target.value
             }, function () {
                 _this3.sortArticles();
             });
         }
+        //Depending on the current value, sort articles by either published date OR by importance.
+
     }, {
         key: 'sortArticles',
         value: function sortArticles() {
             var value = this.state.dropdownValue;
             var articles = this.state.allArticles;
-            console.log("Sort Articles function", value);
-
             if (value === 'date') {
-                console.log("articles sorting date", articles);
                 articles.sort(function (a, b) {
                     return b.published_date - a.published_date;
                 });
                 this.setState({
                     allArticles: articles
                 });
-                console.log("________1", articles);
             }
             if (value === 'importance') {
-                console.log("articles sorting importance", articles);
                 articles.sort(function (a, b) {
                     return b.level[0] - a.level[0];
                 });
-                console.log("________2", articles);
                 this.setState({
                     allArticles: articles
                 });
@@ -21795,7 +21795,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57270' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56549' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

@@ -17,19 +17,19 @@ export default class App extends Component {
         this.dropdownHandleChange = this.dropdownHandleChange.bind(this);
         this.sortArticles = this.sortArticles.bind(this);
     }
+    //Before mounting, retrieve data from API Call.
     componentWillMount() {
-        console.log("clicked");
         axios.get('/hello')
             .then(res => {
                 this.setState({
                     allArticles: res.data
                 })
-
             })
             .catch(err => {
                 console.log("err", err);
             })
     }
+    //On clicking on an article take that index, indentifying the number in the initial array of articles and pass that info to the MasterView component.
     detailViewClickToMaster(index) {
         const self = this;
         return function() {
@@ -38,12 +38,9 @@ export default class App extends Component {
             self.setState({
                 currentMasterView
             })
-            console.log("REACHING?");
         }
-
-
-
     }
+    //Change the data to display both the level integer and an image represting the importance.
     renderIndicatorImage(article) {
         if(article.level === '0') {
             article.level = [0, <img src="/images/green.png" className="indicator-light" />]
@@ -54,39 +51,31 @@ export default class App extends Component {
         if(article.level === '2') {
             article.level = [2, <img src="/images/red.png" className="indicator-light" />]
         }
-
     }
+    //In reference to the drop down filter in the MasterView.
     dropdownHandleChange(e) {
-        console.log("handling change!", e.target.value);
         this.setState({
             dropdownValue: e.target.value
         }, () => {
             this.sortArticles();
         } );
     }
+    //Depending on the current value, sort articles by either published date OR by importance.
     sortArticles() {
         const value = this.state.dropdownValue;
         const articles = this.state.allArticles;
-        console.log("Sort Articles function", value);
-
-
         if(value === 'date') {
-            console.log("articles sorting date", articles);
             articles.sort((a, b) => {
                 return b.published_date - a.published_date;
             })
             this.setState({
                 allArticles: articles
             })
-            console.log("________1", articles);
-
         }
         if(value === 'importance') {
-            console.log("articles sorting importance", articles);
             articles.sort((a, b) => {
                 return b.level[0] - a.level[0];
             })
-            console.log("________2", articles);
             this.setState({
                 allArticles: articles
             })
@@ -99,9 +88,7 @@ export default class App extends Component {
                 <MasterView articles={this.state.allArticles} renderIndicatorImage ={this.renderIndicatorImage} detailViewClickToMaster={this.detailViewClickToMaster}
                 dropdownHandleChange={this.dropdownHandleChange} dropdownValue={this.state.dropdownValue} masterArticleStyle={this.state.masterArticleStyle}/>
                 <DetailView currentMasterView={this.state.currentMasterView} renderIndicatorImage={this.renderIndicatorImage}/>
-
             </div>
-
         )
     }
 }

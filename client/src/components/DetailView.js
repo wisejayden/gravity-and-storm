@@ -28,10 +28,7 @@ const DetailView = (props) => {
                             <a className="explanation-link" key={i} href={explanation.url} target="_blank">{explanation.title}</a>
                         )
                     })}
-
-
                 </div>
-
             }
         </div>
     )

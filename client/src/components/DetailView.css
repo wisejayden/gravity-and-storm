@@ -4,15 +4,14 @@
 }
 
 .master-container {
-    /* padding: 0px 10px 0px 10px; */
-    margin: 0;
     background-color: white;
     height: 100%;
 
 }
 .master-container > h1 {
     text-align: center;
-    margin: 30px 0px 10px 0px;
+    padding-top: 50px;
+    margin: 0px 0px 10px 0px;
 }
 .master-container > .indicator-light {
     width: 20px;
@@ -26,6 +25,7 @@
 }
 .body-container > p {
     text-align: center;
+    margin-bottom: 50px;
 }
 #action-link-container {
     margin-bottom: 50px;
@@ -41,4 +41,8 @@
     text-align: center;
     height: 100vh;
     line-height: 100vh;
+}
+.explanation-link {
+    display: block;
+    text-align: center;
 }
